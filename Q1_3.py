@@ -66,11 +66,16 @@ def process_phrase_query(query, positional_index):
     return len(valid_docs), list(valid_docs.keys())
 
 def main():
-    positional_index = load_positional_index('positional_index.pkl')
+    positional_index_path = 'positional_index.pkl'
+    positional_index = load_positional_index(positional_index_path)
     
     num_queries = int(input("Enter the number of queries: "))
     for i in range(num_queries):
         query = input(f"Enter phrase query {i+1}: ")
+        preprocessed_query_tokens = preprocess_text(query)
+        formatted_query = ' '.join(preprocessed_query_tokens)
+        print(f"Processed phrase query {i+1}: {formatted_query}")
+        
         num_docs, doc_names = process_phrase_query(query, positional_index)
         print(f"Number of documents retrieved for query {i+1} using positional index: {num_docs}")
         if num_docs > 0:
