@@ -80,11 +80,14 @@ def main():
     num_queries = int(input("Enter the number of queries: "))
     for i in range(1, num_queries + 1):
         query = input(f"Enter query {i}: ")
-        operations = input("Enter operations separated by comma for query: ").split(',')
+        operations_input = input("Enter operations separated by comma for query {i}: ")
+        operations = [op.strip() for op in operations_input.split(',')]
         preprocessed_query_tokens = preprocess_text(query)
+        formatted_query = preprocessed_query_tokens[0] if preprocessed_query_tokens else ''
+        for op, token in zip(operations, preprocessed_query_tokens[1:]):
+            formatted_query += f" {op} {token}"
         result = process_query(preprocessed_query_tokens, operations, inverted_index)
-        
-        print(f"Query {i}")
+        print(f"\nQuery {i}: {formatted_query}")
         print(f"Number of documents retrieved for query {i}: {len(result)}")
         if len(result) > 0:
             print(f"Names of the documents retrieved for query {i}: {', '.join(sorted(result))}")
@@ -94,6 +97,4 @@ def main():
 input_dir = '/Users/vishnu/output_1.1'
 inverted_index = create_inverted_index(input_dir)
 save_inverted_index(inverted_index, 'inverted_index.pkl')
-
-
 main()
