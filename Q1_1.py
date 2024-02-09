@@ -21,6 +21,8 @@ stopwords = set([
 def preprocess_text(text, filename="", print_steps=False):
     if print_steps:
         print(f"Processing file: {filename}")
+        print("Before processing:")
+        print(text[:500] + "\n...\n")
     
     # a. Lowercase the text
     text_lower = text.lower()
