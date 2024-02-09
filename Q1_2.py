@@ -80,7 +80,7 @@ def main():
     num_queries = int(input("Enter the number of queries: "))
     for i in range(1, num_queries + 1):
         query = input(f"Enter query {i}: ")
-        operations_input = input("Enter operations separated by comma for query {i}: ")
+        operations_input = input("Enter operations separated by comma for query: ")
         operations = [op.strip() for op in operations_input.split(',')]
         preprocessed_query_tokens = preprocess_text(query)
         formatted_query = preprocessed_query_tokens[0] if preprocessed_query_tokens else ''
